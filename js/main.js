@@ -5,11 +5,10 @@ require([
     'routers', // Do not remove. This is required as a dependency. Routers must be loaded prior to App.start();
     'views/layout/junoLayout',
     'views/item/headerItemView',
-    'views/item/unsupportedItemView',
     'views/item/clickMenuItemView'
 ],
 
-    function (Backbone, Marionette, App, Routers, JunoLayout, HeaderItemView, UnsupportedItemView, ClickMenuItemView) {
+    function (Backbone, Marionette, App, Routers, JunoLayout, HeaderItemView, ClickMenuItemView) {
         
         try {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -66,7 +65,6 @@ require([
         
         var junoLayout = new JunoLayout();
         var headerView = new HeaderItemView();
-        var unsupported = new UnsupportedItemView();
         App.contextMenu = new ClickMenuItemView();
         
         
@@ -84,13 +82,7 @@ require([
         App.router = Routers;
         App.start();
         
-        
-        
-        if(screen.width < 1024 || screen.height < 768) {
-            App.content.show(unsupported);
-        } else {
-            App.content.show(junoLayout);
-            App.header.show(headerView);
-            App.menu.show(App.contextMenu);
-        }        
+        App.content.show(junoLayout);
+        App.header.show(headerView);
+        App.menu.show(App.contextMenu);
 });
